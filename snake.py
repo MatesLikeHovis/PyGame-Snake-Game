@@ -1,7 +1,7 @@
 import pygame
 import random
 
-running  = True
+#CLASS DEFINITIONS
 
 class GameState:
     def __init__(self):
@@ -19,6 +19,8 @@ class Player:
     snakeLength = 3
     direction = [0,1]
     currentPosition = [10,12]
+
+#FUNCTION DEFINITIONS
 
 def EndGame():
     game.running = False
@@ -75,6 +77,8 @@ def CollisionCheck(position):
     else:
         return
 
+# GAME SETUP AND DECLARATIONS
+
 game = GameState()
 player = Player()
 game.running = True
@@ -88,17 +92,21 @@ SCREENWIDTH = 800
 SCREENHEIGHT = 600
 player.direction = [0, 1]
 applePosition = [0,0]
-
-screen = pygame.display.set_mode((SCREENWIDTH,SCREENHEIGHT))
-pygame.display.set_caption("PySnake")
-
-MovementCheck = pygame.USEREVENT+1
-pygame.time.set_timer(MovementCheck, 25)
 green = (0, 200, 0)
 purple = (200, 0, 200)
 red = (200, 0, 0)
 blue = (0, 0, 200)
 black = (0, 0, 0)
+
+# PYGAME SETUP
+
+screen = pygame.display.set_mode((SCREENWIDTH,SCREENHEIGHT))
+pygame.display.set_caption("PySnake")
+MovementCheck = pygame.USEREVENT+1
+pygame.time.set_timer(MovementCheck, 25)
+
+# FIRST SNAKE POINTS ADDED:
+
 grid[10][10] = 1
 player.snakeChain.append([10,10])
 grid[10][11] = 1
@@ -107,9 +115,11 @@ grid[10][12] = 1
 player.snakeChain.append([10,12])
 PlaceApple(True)
 
+# GAME LOOP FOLLOWS:
 
 while game.running != False:  
     screen.fill(black)
+    #EVENT DETECTION:
     for event in pygame.event.get():  
         if event.type == pygame.QUIT:  
            game.running = False
@@ -126,13 +136,12 @@ while game.running != False:
             if event.key == pygame.K_s or event.key == pygame.K_DOWN:
                 if player.direction != [-1,0]: 
                     player.direction = [1,0]
-
         if event.type == MovementCheck:
             game.timeTimer += 25
             if game.timeTimer > game.timeDiff:
                 MoveSnake()
                 game.timeTimer = 0
-
+    #SCREEN UPDATING:
     ypos = 0
     for row in grid:
         xpos = 0
@@ -148,6 +157,4 @@ while game.running != False:
                 pygame.draw.rect(screen, purple, thisRect)
             xpos += 1
         ypos += 1
-    
-
     pygame.display.update()
