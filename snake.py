@@ -121,7 +121,7 @@ while game.running != False:
                 if player.direction != [0,-1]:
                     player.direction = [0,1]
             if event.key == pygame.K_w or event.key == pygame.K_UP:
-                if player.direction != [1,0]
+                if player.direction != [1,0]:
                     player.direction = [-1,0]
             if event.key == pygame.K_s or event.key == pygame.K_DOWN:
                 if player.direction != [-1,0]: 
